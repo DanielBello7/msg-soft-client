@@ -3,6 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { ACTIVE_SCREEN_TYPE } from "./SidebarComponent";
 import { useApplicationData } from "../context/data.context";
 import React from "react";
+import { useModalData } from "../context/modal.context";
 
 interface MenuItemProps {
     icon: React.ReactNode
@@ -41,6 +42,7 @@ function MenuItem(props: MenuItemProps) {
 
 function OptionsComponent(props: OptionsComponentProps) {
     const { setUser, setSelected, setConversations, setContacts } = useApplicationData();
+    const { ToggleNewContact } = useModalData();
 
     const HandleLogout = () => {
         setUser(null);
@@ -58,7 +60,7 @@ function OptionsComponent(props: OptionsComponentProps) {
         },
         {
             icon: <FaInfoCircle size={15} />,
-            click: () => null,
+            click: () => ToggleNewContact(true),
             id: 3,
             title: "Add New Contact",
         },
