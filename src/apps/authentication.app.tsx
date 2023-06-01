@@ -28,7 +28,6 @@ function AuthenticationApp() {
     return (
         <div className="flex justify-center items-center border border-black w-full h-full">
             <form className="p-3" style={{ width: 300, height: 300 }} onSubmit={HandleSubmit}>
-                <input />
                 <InputBox
                     id="fullname"
                     setValue={setFullname}

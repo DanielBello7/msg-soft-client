@@ -1,5 +1,6 @@
-import { temp } from "../constants";
 import { ConversationsDataType, ParticipantDataType } from "../vite-env";
+import { temp } from "../constants";
+import variables from "../constants/variables";
 import React from "react";
 
 interface DataContextProviderProps {
@@ -19,9 +20,15 @@ interface DataContextType {
     activeConversation: ConversationsDataType | null
 
     setSelected: React.Dispatch<React.SetStateAction<number | null>>
+
+    API: string
+    BASE_URL: string
+    SOCKET: string
 }
 
 const DataContext = React.createContext({} as DataContextType);
+
+const { API, BASE_URL, SOCKET } = variables.LOCAL;
 
 export const useApplicationData = () => React.useContext(DataContext);
 
@@ -44,7 +51,11 @@ export default function DataContextProvider(props: DataContextProviderProps) {
 
             activeConversation: selected !== null ? conversations[selected] : null,
 
-            setSelected
+            setSelected,
+
+            API,
+            BASE_URL,
+            SOCKET
         }}>
             {props.children}
         </DataContext.Provider>

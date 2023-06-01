@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
+    "@types/socket.io-client": "^3.0.0",
     "@types/uuid": "^9.0.1",
     "axios": "^1.4.0",
     "react": "^18.2.0",

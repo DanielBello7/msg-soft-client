@@ -1,9 +1,11 @@
 import { FaEllipsisH, FaInfoCircle, FaSun, FaTrashAlt } from "react-icons/fa";
-import { Menu, Transition } from "@headlessui/react";
 import { ACTIVE_SCREEN_TYPE } from "./SidebarComponent";
+import { Menu, Transition } from "@headlessui/react";
 import { useApplicationData } from "../context/data.context";
-import React from "react";
 import { useModalData } from "../context/modal.context";
+import { useSocketData } from "../context/socket.context";
+import React from "react";
+import ConnectionStatus from "../modules/ConnectionStatus";
 
 interface MenuItemProps {
     icon: React.ReactNode
@@ -43,11 +45,14 @@ function MenuItem(props: MenuItemProps) {
 function OptionsComponent(props: OptionsComponentProps) {
     const { setUser, setSelected, setConversations, setContacts } = useApplicationData();
     const { ToggleNewContact } = useModalData();
+    const { socket, setSocket } = useSocketData();
 
     const HandleLogout = () => {
         setUser(null);
         setSelected(null);
         setConversations([]);
+        socket?.disconnect();
+        setSocket(null);
         return setContacts([]);
     }
 
@@ -122,6 +127,7 @@ function TitleBarComponent(props: TitleBarComponentProps) {
             <div>
                 <h4 className="font-bold text-2xl capitalize">{user?.fullname}</h4>
                 <p className="text-xs text-gray-400">{user?._id}</p>
+                <ConnectionStatus />
             </div>
             <OptionsComponent
                 active={props.active}
