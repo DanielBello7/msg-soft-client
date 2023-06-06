@@ -10,7 +10,7 @@ function ModalBody() {
     const [fullname, setFullname] = React.useState("");
     const [identifier, setIdentifier] = React.useState("");
     const { ToggleNewContact } = useModalData();
-    const { setContacts } = useApplicationData();
+    const { setContacts, setCurrentTab } = useApplicationData();
 
     const HandleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -26,7 +26,8 @@ function ModalBody() {
         setFullname("");
         setIdentifier("");
         ToggleNewContact(false);
-        return setIsLoading(false);
+        setIsLoading(false);
+        return setCurrentTab("contacts");
     }
 
     return (

@@ -4,6 +4,7 @@ import { MessageDataType } from '../vite-env';
 import { v4 as uuid } from 'uuid';
 import { useModalData } from '../context/modal.context';
 import { FaComments } from 'react-icons/fa';
+import { useSocketData } from '../context/socket.context';
 import React from "react";
 
 function TextBubbleTitleComponent() {
@@ -67,9 +68,10 @@ function TextBubbleComponent() {
 }
 
 function TextInputComponent() {
-    const { conversations, setConversations, activeConversation, user } = useApplicationData();
-    const { ToggleAlert: ToggleToast } = useModalData();
     const [value, setValue] = React.useState("");
+    const { AddMessageToConversations, setConversations, conversations, user, activeConversation } = useApplicationData();
+    const { ToggleAlert: ToggleToast } = useModalData();
+    const { socket } = useSocketData();
 
     const calcHeight = (value: string) => {
         let numberOfLineBreaks = (value.match(/\n/g) || []).length;
@@ -82,30 +84,19 @@ function TextInputComponent() {
         if (!value.trim()) return ToggleToast(true, "Please type in something...");
         if (!activeConversation || !user) return
 
-        const check = activeConversation.participants.filter(item => item._id === user._id);
-
-        if (check.length < 1) {
-            const correction = conversations.map((item) => {
-                if (item._id === activeConversation._id) item.participants = [...item.participants, user]
-                return item
-            });
-            setConversations(correction);
-        }
-
         const data: MessageDataType = {
             _id: uuid(),
             conversation_id: activeConversation?._id,
             createdAt: new Date().toDateString(),
             createdBy: user,
-            text: value
+            text: value,
+            recipients: activeConversation?.recipients
         }
 
-        const updated = conversations.map((item) => {
-            if (item._id === activeConversation._id) item.messages = [...item.messages, data]
-            return item
-        });
+        setConversations(AddMessageToConversations(data, conversations));
 
-        setConversations(updated);
+        const id = activeConversation.recipients.filter((item) => item !== user._id);
+        socket?.emit('outgoing', data, { id: id });
         return setValue("");
     }
 

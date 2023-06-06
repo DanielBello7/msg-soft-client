@@ -1,6 +1,6 @@
 import SidebarComponent from "../components/SidebarComponent";
-import ChatboxComponent from "../components/ChatboxComponent";
 import useCachedResources from "../hooks/useCachedResources";
+import ChatboxComponent from "../components/ChatboxComponent";
 import { FaInfoCircle, FaSpinner } from "react-icons/fa";
 import { useSocketData } from "../context/socket.context";
 
@@ -15,15 +15,24 @@ function ErrorComponent(props: { error: Error }) {
                     color="red"
                 />
                 <div style={{ letterSpacing: '-1px' }} className="ms-2">
-                    <h1 className="font-bold text-3xl">Error occurred</h1>
-                    <p className=" fs-9 capitalize text-gray-400">{props.error.message}</p>
+                    <h1 className="font-bold text-3xl">
+                        Error occurred
+                    </h1>
+
+                    <p className=" fs-9 capitalize text-gray-400">
+                        {props.error.message}
+                    </p>
                     <button
                         className={`${retrying ? " bg-gray-400" : "bg-red-600"} border fs-7  text-white rounded mt-2 hover:bg-red-800 px-4 py-2 font-bold uppercase`}
                         type="button"
                         onClick={() => socket?.connect()}
                         disabled={retrying && true}
                     >
-                        {retrying ? <FaSpinner className="animate-spin" size="18px" /> : "Retry"}
+                        {
+                            retrying
+                                ? <FaSpinner className="animate-spin" size="18px" />
+                                : "Retry"
+                        }
                     </button>
                 </div>
             </div>

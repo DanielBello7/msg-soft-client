@@ -4,44 +4,48 @@ import { useApplicationData } from "../context/data.context";
 import { v4 as uuid } from 'uuid';
 
 function Contact(props: ParticipantDataType) {
-    const { setContacts, contacts, conversations, setConversations, user, setSelected } = useApplicationData();
+    const { setContacts, contacts, conversations, setConversations, user, setSelected, setCurrentTab } = useApplicationData();
 
     const HandleClick = () => {
         const updated = contacts.filter((item) => item._id !== props._id);
         return setContacts(updated);
     }
 
-    const HandleNew = () => {
+    const HandleCreateNewConversation = (): void => {
         if (!user) return
 
         const contact_user = {
+            fullname: props.fullname,
             _id: props._id,
-            fullname: props.fullname
         }
 
         const check = conversations.find((item) => {
-            if (item.participants.length === 2) {
-                const users = item.participants.map(u => u._id);
-                if (users.includes(contact_user._id) && users.includes(user._id)) return item
+            if (item.recipients.length === 2) {
+                if (item.recipients.includes(contact_user._id) && item.recipients.includes(user._id)) return item
             }
         });
 
-        if (check) return setSelected(conversations.indexOf(check))
+        if (check) {
+            setSelected(check._id);
+            return setCurrentTab("conversations");
+        }
 
         const new_convo: ConversationsDataType = {
             _id: uuid(),
             createdAt: new Date().toDateString(),
             messages: [],
-            participants: [contact_user, user]
+            participants: [contact_user, user],
+            recipients: [contact_user._id, user._id]
         }
 
-        setConversations((prev) => [...prev, new_convo]);
-        return setSelected(conversations.length);
+        setConversations([...conversations, new_convo]);
+        setSelected(new_convo._id);
+        return setCurrentTab("conversations");
     }
 
     return (
         <div className="w-full p-2 border-b border-blue-200 flex hover:bg-blue-100 cursor-pointer">
-            <div className="w-full" onClick={HandleNew}>
+            <div className="w-full" onClick={HandleCreateNewConversation}>
                 <h3 className="font-bold capitalize">{props.fullname}</h3>
                 <p className="fs-7 text-gray-500">{props._id}</p>
             </div>
@@ -55,7 +59,7 @@ function Contact(props: ParticipantDataType) {
     )
 }
 
-function ContactsBarComponent() {
+export default function ContactsBarComponent() {
     const { contacts } = useApplicationData();
     return (
         <div className="w-full flex grow flex-col">
@@ -77,5 +81,3 @@ function ContactsBarComponent() {
         </div>
     )
 }
-
-export default ContactsBarComponent

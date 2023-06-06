@@ -1,7 +1,6 @@
 import { FaEllipsisH, FaInfoCircle, FaSun, FaTrashAlt } from "react-icons/fa";
-import { ACTIVE_SCREEN_TYPE } from "./SidebarComponent";
-import { Menu, Transition } from "@headlessui/react";
 import { useApplicationData } from "../context/data.context";
+import { Menu, Transition } from "@headlessui/react";
 import { useModalData } from "../context/modal.context";
 import { useSocketData } from "../context/socket.context";
 import React from "react";
@@ -9,18 +8,8 @@ import ConnectionStatus from "../modules/ConnectionStatus";
 
 interface MenuItemProps {
     icon: React.ReactNode
-    onClick: Function
     title: string
-}
-
-interface TitleBarComponentProps {
-    active: ACTIVE_SCREEN_TYPE
-    setActive: React.Dispatch<React.SetStateAction<ACTIVE_SCREEN_TYPE>>
-}
-
-interface OptionsComponentProps {
-    active: ACTIVE_SCREEN_TYPE
-    setActive: React.Dispatch<React.SetStateAction<ACTIVE_SCREEN_TYPE>>
+    onClick: Function
 }
 
 function MenuItem(props: MenuItemProps) {
@@ -42,15 +31,15 @@ function MenuItem(props: MenuItemProps) {
     )
 }
 
-function OptionsComponent(props: OptionsComponentProps) {
-    const { setUser, setSelected, setConversations, setContacts } = useApplicationData();
-    const { ToggleNewContact } = useModalData();
+function OptionsComponent() {
+    const { setUser, setSelected, setConversations, setContacts, currentTab, setCurrentTab } = useApplicationData();
     const { socket, setSocket } = useSocketData();
+    const { ToggleNewContact } = useModalData();
 
     const HandleLogout = () => {
         setUser(null);
-        setSelected(null);
         setConversations([]);
+        setSelected(null);
         socket?.disconnect();
         setSocket(null);
         return setContacts([]);
@@ -60,8 +49,8 @@ function OptionsComponent(props: OptionsComponentProps) {
         {
             icon: <FaSun size={15} />,
             id: 1,
-            title: props.active === "conversations" ? "Show Contacts" : "Show Conversations",
-            click: () => props.setActive(props.active === "conversations" ? "contacts" : "conversations")
+            title: currentTab === "conversations" ? "Show Contacts" : "Show Conversations",
+            click: () => setCurrentTab(currentTab === "conversations" ? "contacts" : "conversations")
         },
         {
             icon: <FaInfoCircle size={15} />,
@@ -119,8 +108,7 @@ function OptionsComponent(props: OptionsComponentProps) {
     )
 }
 
-
-function TitleBarComponent(props: TitleBarComponentProps) {
+export default function TitleBarComponent() {
     const { user } = useApplicationData();
     return (
         <div className="w-full border-b p-2 flex justify-between items-center">
@@ -129,13 +117,7 @@ function TitleBarComponent(props: TitleBarComponentProps) {
                 <p className="text-xs text-gray-400">{user?._id}</p>
                 <ConnectionStatus />
             </div>
-            <OptionsComponent
-                active={props.active}
-                setActive={props.setActive}
-            />
+            <OptionsComponent />
         </div>
     )
 }
-
-
-export default TitleBarComponent;

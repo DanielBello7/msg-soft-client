@@ -12,8 +12,7 @@ function Conversation(props: ConversationProps) {
     const participants = props.data.participants.filter((item) => item._id !== user?._id);
     const lastMessage = props.data.messages[props.data.messages.length - 1];
     const people = participants.map((item) => (item.fullname)).join(", ");
-
-    const HandleClick = () => setSelected(props.id);
+    const HandleClick = () => setSelected(props.data._id);
 
     return (
         <div

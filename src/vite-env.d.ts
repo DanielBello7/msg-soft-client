@@ -12,6 +12,7 @@ export interface MessageDataType {
     conversation_id: string
     createdAt: string
     text: string
+    recipients: string[]
 }
 
 export interface ConversationsDataType {
@@ -19,4 +20,5 @@ export interface ConversationsDataType {
     _id: string
     messages: MessageDataType[]
     createdAt: string
+    recipients: string[]
 }

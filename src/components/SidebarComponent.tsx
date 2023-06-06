@@ -1,25 +1,20 @@
 import ConversationsBarComponent from "./ConversationsBarComponent";
-import React from "react";
-import TitleBarComponent from "./TitleBarComponent";
 import ContactsBarComponent from "./ContactsBarComponent";
-
-export type ACTIVE_SCREEN_TYPE = "conversations" | "contacts";
+import TitleBarComponent from "./TitleBarComponent";
+import { useApplicationData } from "../context/data.context";
 
 export default function SidebarComponent() {
-    const [active, setActive] = React.useState<ACTIVE_SCREEN_TYPE>("conversations");
+    const { currentTab } = useApplicationData();
 
     return (
         <div className="h-full flex flex-col overflow-hidden w-2/6">
-            <TitleBarComponent
-                setActive={setActive}
-                active={active}
-            />
+            <TitleBarComponent />
             {
-                active === "conversations" &&
+                currentTab === "conversations" &&
                 <ConversationsBarComponent />
             }
             {
-                active === "contacts" &&
+                currentTab === "contacts" &&
                 <ContactsBarComponent />
             }
         </div>

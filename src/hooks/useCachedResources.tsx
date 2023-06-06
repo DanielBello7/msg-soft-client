@@ -1,14 +1,21 @@
 import { useApplicationData } from "../context/data.context";
 import { io } from "socket.io-client";
 import { useSocketData } from "../context/socket.context";
+import { MessageDataType } from "../vite-env";
 import React from "react";
 
 export default function useCachedResources() {
     const [isLoadingComplete, setIsLoadingComplete] = React.useState(false);
     const [isError, setIsError] = React.useState(false);
     const [error, setError] = React.useState<Error | null>(null);
-    const { SOCKET, user } = useApplicationData();
+    const { SOCKET, user, AddMessageToConversations, conversations, setConversations } = useApplicationData();
     const { setSocket, setConnected, setRetrying } = useSocketData();
+
+    const HandleRecieveData = React.useCallback((msg: MessageDataType) => {
+        if (!user) return
+        const result = AddMessageToConversations(msg, conversations);
+        return setConversations(result);
+    }, [setConversations, conversations]);
 
     React.useEffect(() => {
         function loadAsyncData() {
@@ -49,13 +56,15 @@ export default function useCachedResources() {
                 // this is for when it is trying to connect but it isnt working
                 setConnected(false);
                 return setRetrying(true);
-            })
+            });
+
+            main_socket.on('incoming', HandleRecieveData);
 
             return main_socket.connect();
         }
 
         loadAsyncData();
-    }, []);
+    }, [HandleRecieveData]);
 
     return { isLoadingComplete, isError, error }
 }
