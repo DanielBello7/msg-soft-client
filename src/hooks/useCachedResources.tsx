@@ -60,11 +60,13 @@ export default function useCachedResources() {
 
             main_socket.on('incoming', HandleRecieveData);
 
-            return main_socket.connect();
+            main_socket.connect();
+
+            return () => main_socket.disconnect();
         }
 
         loadAsyncData();
-    }, [HandleRecieveData]);
+    }, []);
 
     return { isLoadingComplete, isError, error }
 }

@@ -31,20 +31,24 @@ interface DataContextType {
 
     currentTab: ACTIVE_SCREEN_TYPE
     setCurrentTab: React.Dispatch<React.SetStateAction<ACTIVE_SCREEN_TYPE>>
+
+    activeScreen: "chat" | "sidebar"
+    setActiveScreen: React.Dispatch<React.SetStateAction<"chat" | "sidebar">>
 }
 
 const DataContext = React.createContext({} as DataContextType);
 
-const { API, BASE_URL, SOCKET } = variables.LOCAL;
+const { API, BASE_URL, SOCKET } = variables.LIVE;
 
 export const useApplicationData = () => React.useContext(DataContext);
 
 export default function DataContextProvider(props: DataContextProviderProps) {
     const [user, setUser] = useCookie<ParticipantDataType | null>("user", 2, null);
     const [conversations, setConversations] = useCookie<ConversationsDataType[]>("conversations", 2, []);
-    const [contacts, setContacts] = useCookie<ParticipantDataType[]>("contacts", 2, []);
+    const [contacts, setContacts] = useCookie<ParticipantDataType[]>("contacts", 2, [])
     const [selected, setSelected] = React.useState<string | null>(null);
     const [currentTab, setCurrentTab] = React.useState<ACTIVE_SCREEN_TYPE>("conversations");
+    const [activeScreen, setActiveScreen] = React.useState<"chat" | "sidebar">("sidebar");
 
     const GetCurrent = (): ConversationsDataType | null => {
         if (!selected) return null
@@ -80,7 +84,7 @@ export default function DataContextProvider(props: DataContextProviderProps) {
                 participants: [msg.createdBy, user!],
                 recipients: msg.recipients
             }
-            return [...convo, newConversation]
+            return [newConversation, ...convo]
         }
     }
 
@@ -106,7 +110,10 @@ export default function DataContextProvider(props: DataContextProviderProps) {
             AddMessageToConversations,
 
             currentTab,
-            setCurrentTab
+            setCurrentTab,
+
+            activeScreen,
+            setActiveScreen
         }}>
             {props.children}
         </DataContext.Provider>

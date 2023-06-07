@@ -12,7 +12,7 @@ function ConnectionStatus() {
                         ?
                         <div className="flex items-center">
                             <FaSpinner className="animate-spin me-1" />
-                            <p>retrying to connect</p>
+                            <p>trying to connect</p>
                         </div>
                         :
                         "disconnected"

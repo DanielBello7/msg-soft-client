@@ -26,7 +26,8 @@ const conversations: ConversationsDataType[] = [
                 createdBy: users[0],
                 conversation_id: '1',
                 text: 'hello',
-                recipients: [users[0]._id, users[1]._id]
+                recipients: [users[0]._id, users[1]._id],
+                isRead: false
             },
             {
                 _id: 'A2',
@@ -34,7 +35,8 @@ const conversations: ConversationsDataType[] = [
                 createdBy: users[1],
                 conversation_id: '1',
                 text: 'hi',
-                recipients: [users[0]._id, users[1]._id]
+                recipients: [users[0]._id, users[1]._id],
+                isRead: false
             },
             {
                 _id: 'A3',
@@ -42,7 +44,8 @@ const conversations: ConversationsDataType[] = [
                 createdBy: users[0],
                 conversation_id: '1',
                 text: 'how are you?',
-                recipients: [users[0]._id, users[1]._id]
+                recipients: [users[0]._id, users[1]._id],
+                isRead: false
             },
         ],
         participants: [
@@ -65,7 +68,8 @@ const conversations: ConversationsDataType[] = [
                 itaque soluta fuga id voluptas quisquam aspernatur 
                 repudiandae consequuntur libero suscipit, 
                 a officia accusamus facere! Excepturi, incidunt?`,
-                recipients: [users[2]._id, users[1]._id]
+                recipients: [users[2]._id, users[1]._id],
+                isRead: false
             },
             {
                 _id: 'B2',
@@ -75,7 +79,8 @@ const conversations: ConversationsDataType[] = [
                 text: `Lorem ipsum dolor sit amet consectetur 
                 adipisicing elit. Hic nisi assumenda quod delectus 
                 itaque soluta fuga id voluptas quisquam aspernatur`,
-                recipients: [users[2]._id, users[1]._id]
+                recipients: [users[2]._id, users[1]._id],
+                isRead: false
             },
             {
                 _id: 'B3',
@@ -84,7 +89,8 @@ const conversations: ConversationsDataType[] = [
                 conversation_id: '2',
                 text: `Lorem ipsum dolor sit amet consectetur 
                 adipisicing elit. Hic nisi assumenda quod delect`,
-                recipients: [users[2]._id, users[1]._id]
+                recipients: [users[2]._id, users[1]._id],
+                isRead: false
             },
         ],
         participants: [

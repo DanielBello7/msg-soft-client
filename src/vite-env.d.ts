@@ -13,6 +13,7 @@ export interface MessageDataType {
     createdAt: string
     text: string
     recipients: string[]
+    isRead: boolean
 }
 
 export interface ConversationsDataType {

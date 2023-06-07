@@ -4,7 +4,7 @@ import { useApplicationData } from "../context/data.context";
 import { v4 as uuid } from 'uuid';
 
 function Contact(props: ParticipantDataType) {
-    const { setContacts, contacts, conversations, setConversations, user, setSelected, setCurrentTab } = useApplicationData();
+    const { setContacts, contacts, conversations, setConversations, user, setSelected, setCurrentTab, setActiveScreen } = useApplicationData();
 
     const HandleClick = () => {
         const updated = contacts.filter((item) => item._id !== props._id);
@@ -40,7 +40,8 @@ function Contact(props: ParticipantDataType) {
 
         setConversations([...conversations, new_convo]);
         setSelected(new_convo._id);
-        return setCurrentTab("conversations");
+        setCurrentTab("conversations");
+        return setActiveScreen("chat");
     }
 
     return (

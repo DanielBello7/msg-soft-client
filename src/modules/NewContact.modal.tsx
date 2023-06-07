@@ -9,12 +9,13 @@ function ModalBody() {
     const [isLoading, setIsLoading] = React.useState(false);
     const [fullname, setFullname] = React.useState("");
     const [identifier, setIdentifier] = React.useState("");
-    const { ToggleNewContact } = useModalData();
-    const { setContacts, setCurrentTab } = useApplicationData();
+    const { ToggleNewContact, ToggleAlert } = useModalData();
+    const { setContacts, setCurrentTab, user } = useApplicationData();
 
     const HandleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         if (!fullname.trim() || !identifier.trim()) return
+        if (identifier === user?._id) return ToggleAlert(true, "Can't add your own account");
         setIsLoading(true);
 
         const contact: ParticipantDataType = {
@@ -32,7 +33,7 @@ function ModalBody() {
 
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto">
-            <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+            <div className="flex items-center justify-center min-h-full p-4 text-center sm:p-0">
                 <Transition.Child
                     enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     enterTo="opacity-100 translate-y-0 sm:scale-100"
@@ -42,7 +43,7 @@ function ModalBody() {
                     leave="ease-in duration-200"
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
-                    <Dialog.Panel className="relative bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
+                    <Dialog.Panel className="relative bg-white rounded-lg overflow-hidden shadow-xl transform transition-all w-full h-full sm:my-8 sm:max-w-lg sm:w-full">
                         <div className="bg-white px-4 pt-5 pb-4">
                             <div className="mt-3 w-full text-start">
                                 <Dialog.Title as="h3" className="text-lg leading-6 text-gray-900 font-bold">
