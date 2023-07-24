@@ -1,9 +1,9 @@
-const LIVE_SOCKET_API = 'http://192.168.200.32:3002';
+const LIVE_SOCKET_API = 'http://192.168.200.34:3002';
 const LOCAL_SOCKET_API = 'http://localhost:3002';
-const LIVE_API = 'http://192.168.200.32:3002';
+const LIVE_API = 'http://192.168.200.34:3002';
 const LOCAL_API = 'http://localhost:3002';
 const LOCAL_BASE_URL = 'http://localhost:3002';
-const LIVE_BASE_URL = 'http://192.168.200.32:3002';
+const LIVE_BASE_URL = 'http://192.168.200.34:3002';
 
 export default {
     LOCAL: {
