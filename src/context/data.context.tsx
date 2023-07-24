@@ -63,10 +63,7 @@ export default function DataContextProvider(props: DataContextProviderProps) {
     }
 
     const AddMessageToConversations = (msg: MessageDataType, convo: ConversationsDataType[]): ConversationsDataType[] => {
-        const neededConversation = convo.filter((item) => {
-            if (EqualityCheck(item.recipients, msg.recipients))
-                return item
-        });
+        const neededConversation = convo.filter((item) => (EqualityCheck(item.recipients, msg.recipients)));
 
         if (neededConversation.length > 0) {
             const updatedConversations = convo.map((item) => {
