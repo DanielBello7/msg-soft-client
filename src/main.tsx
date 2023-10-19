@@ -6,11 +6,11 @@ import ModalContextProvider from './context/modal.context.tsx';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <DataContextProvider>
-    <SocketContextProvider>
-      <ModalContextProvider>
-        <App />
-      </ModalContextProvider>
-    </SocketContextProvider>
-  </DataContextProvider>
+    <DataContextProvider>
+        <SocketContextProvider>
+            <ModalContextProvider>
+                <App />
+            </ModalContextProvider>
+        </SocketContextProvider>
+    </DataContextProvider>
 )

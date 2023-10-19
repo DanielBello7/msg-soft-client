@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "live-dev": "vite --host"
+    "dev:live": "vite --host",
+    "start": "npm run build && pm2 serve dist 5665 --spa",
+    "deploy": "npm run dev && pm2 startOrRestart ecosystem.config.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -22,6 +24,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/node": "^20.8.7",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",

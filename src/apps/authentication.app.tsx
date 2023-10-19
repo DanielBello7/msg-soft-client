@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import React from "react";
 import InputBox from '../modules/InputBox';
 
-function AuthenticationApp() {
+export default function AuthenticationApp() {
     const [identifier, setIdentifier] = React.useState("");
     const [fullname, setFullname] = React.useState("");
     const [isLoading, setIsLoading] = React.useState(false);
@@ -53,11 +53,13 @@ function AuthenticationApp() {
 
                 <button className="mt-2 w-full h-10 text-white flex items-center justify-center bg-blue-500 hover:opacity-50 font-bold text-xs rounded"
                     disabled={isLoading && true}>
-                    {isLoading ? <FaSpinner className="animate-spin" /> : "PROCEED"}
+                    {
+                        isLoading
+                            ? <FaSpinner className="animate-spin" />
+                            : "PROCEED"
+                    }
                 </button>
             </form>
         </div>
     )
 }
-
-export default AuthenticationApp;

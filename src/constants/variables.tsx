@@ -1,9 +1,14 @@
-const LIVE_SOCKET_API = 'http://192.168.200.35:3002';
-const LOCAL_SOCKET_API = 'http://localhost:3002';
-const LIVE_API = 'http://192.168.200.35:3002';
-const LOCAL_API = 'http://localhost:3002';
-const LOCAL_BASE_URL = 'http://localhost:3002';
-const LIVE_BASE_URL = 'http://192.168.200.35:3002';
+// SOCKET SERVER
+const LIVE_SOCKET_API = process.env.VITE_LIVE_SOCKET_API as string ?? "";
+const LOCAL_SOCKET_API = process.env.VITE_LOCAL_SOCKET_API as string ?? "";
+
+// MAIN API SERVER
+const LIVE_API = process.env.VITE_LIVE_API as string ?? "";
+const LOCAL_API = process.env.VITE_LOCAL_API as string ?? "";
+
+// CLIENT SERVER
+const LOCAL_BASE_URL = process.env.VITE_LOCAL_BASE_URL as string ?? "";
+const LIVE_BASE_URL = process.env.VITE_LIVE_BASE_URL as string ?? "";
 
 export default {
     LOCAL: {

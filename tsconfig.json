@@ -20,7 +20,14 @@
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "baseUrl": "./src",
+    "paths": {
+        "@/*": ["*"],
+        "@ui/*": ["components/ui/*"],
+        "@components/*": ["components/*"],
+        "@features/*": ["features/*"]
+    }
   },
   "include": [
     "src"
