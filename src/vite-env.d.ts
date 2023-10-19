@@ -1,6 +1,5 @@
 /// <reference types="vite/client" />
 
-
 export interface ParticipantDataType {
     fullname: string
     _id: string

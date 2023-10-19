@@ -3,39 +3,39 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  background-color: #242424;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    background-color: #242424;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 body::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 *::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 * {
-  box-sizing: border-box;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    box-sizing: border-box;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .fs-7 {
-  font-size: 0.7rem;
+    font-size: 0.7rem;
 }
 
 .fs-8 {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
 
 .fs-9 {
-  font-size: 0.9rem;
+    font-size: 0.9rem;
 }
