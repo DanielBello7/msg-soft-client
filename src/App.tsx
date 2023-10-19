@@ -1,8 +1,8 @@
 import { useApplicationData } from "./context/data.context";
-import AuthenticationApp from "./apps/authentication.app";
 import React from "react";
-import MainApp from "./apps/main.app";
 import ModalComponent from "./components/modal-component";
+import ConversationsPage from "./pages/conversations";
+import LoginPage from "./pages/login";
 export default function App() {
     const { user } = useApplicationData();
     return (
@@ -11,8 +11,8 @@ export default function App() {
                 <div className="w-full h-full bg-white rounded">
                     {
                         user
-                            ? <MainApp />
-                            : <AuthenticationApp />
+                            ? <ConversationsPage />
+                            : <LoginPage />
                     }
                 </div>
             </div>

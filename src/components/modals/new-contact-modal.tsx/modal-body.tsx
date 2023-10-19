@@ -1,11 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { useModalData } from '../context/modal.context';
-import { ParticipantDataType } from '../vite-env';
-import { useApplicationData } from '../context/data.context';
-import InputBox from './InputBox';
+import { useModalData } from '@/context/modal.context';
+import { ParticipantDataType } from '@/vite-env';
+import { useApplicationData } from '@/context/data.context';
+import InputBox from '@ui/input-box';
 import React from 'react';
 
-function ModalBody() {
+export default function ModalBody() {
     const [isLoading, setIsLoading] = React.useState(false);
     const [fullname, setFullname] = React.useState("");
     const [identifier, setIdentifier] = React.useState("");
@@ -96,27 +96,4 @@ function ModalBody() {
             </div>
         </div>
     )
-}
-
-export default function NewContactModal() {
-    const { ToggleNewContact, newContact } = useModalData();
-    return (
-        <Transition.Root show={newContact} as={React.Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={() => ToggleNewContact(false)}>
-                <Transition.Child
-                    as={React.Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                >
-                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-                </Transition.Child>
-
-                <ModalBody />
-            </Dialog>
-        </Transition.Root>
-    );
 }

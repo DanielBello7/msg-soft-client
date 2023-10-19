@@ -1,40 +1,23 @@
-import { FaEllipsisH, FaInfoCircle, FaSun, FaTrashAlt } from "react-icons/fa";
-import { useApplicationData } from "../context/data.context";
+import { FaEllipsisH, FaTrashAlt, FaInfoCircle } from "react-icons/fa";
+import { useSocketData } from "@/context/socket.context";
+import { FaSun } from "react-icons/fa";
+import { useModalData } from "@/context/modal.context";
 import { Menu, Transition } from "@headlessui/react";
-import { useModalData } from "../context/modal.context";
-import { useSocketData } from "../context/socket.context";
-import React from "react";
-import ConnectionStatus from "../modules/ConnectionStatus";
+import { useApplicationData } from "@/context/data.context";
+import MenuItem from "./menu-item";
+import * as React from 'react';
 
-interface MenuItemProps {
-    icon: React.ReactNode
-    title: string
-    onClick: Function
-}
-
-function MenuItem(props: MenuItemProps) {
-    return (
-        <Menu.Item>
-            {
-                ({ active, disabled }) => (
-                    <button
-                        className={`main-app ${active ? 'bg-blue-500 text-white' : 'text-gray-900'} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                        onClick={() => props.onClick()}
-                        disabled={disabled}
-                    >
-                        {props.icon}
-                        <span className='ml-2 font-bold main-app'>{props.title}</span>
-                    </button>
-                )
-            }
-        </Menu.Item>
-    )
-}
-
-function OptionsComponent() {
-    const { setUser, setSelected, setConversations, setContacts, currentTab, setCurrentTab } = useApplicationData();
+export default function Options() {
     const { socket, setSocket } = useSocketData();
     const { ToggleNewContact } = useModalData();
+    const {
+        setUser,
+        setSelected,
+        setConversations,
+        setContacts,
+        currentTab,
+        setCurrentTab
+    } = useApplicationData();
 
     const HandleLogout = () => {
         setUser(null);
@@ -104,20 +87,6 @@ function OptionsComponent() {
                     </Menu.Items>
                 </Transition>
             </Menu>
-        </div>
-    )
-}
-
-export default function TitleBarComponent() {
-    const { user } = useApplicationData();
-    return (
-        <div className="w-full border-b p-2 flex justify-between items-center">
-            <div>
-                <h4 className="font-bold text-2xl capitalize">{user?.fullname}</h4>
-                <p className="text-xs text-gray-400">{user?._id}</p>
-                <ConnectionStatus />
-            </div>
-            <OptionsComponent />
         </div>
     )
 }

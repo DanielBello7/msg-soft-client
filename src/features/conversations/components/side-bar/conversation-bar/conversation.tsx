@@ -1,14 +1,12 @@
-import { ConversationsDataType } from "../vite-env";
-import { useApplicationData } from "../context/data.context";
-import { FaDotCircle, FaEdit } from "react-icons/fa";
+import { useApplicationData } from "@/context/data.context";
+import { ConversationsDataType } from "@/vite-env";
+import { FaDotCircle } from "react-icons/fa";
 import React from "react";
-
 interface ConversationProps {
     id: number
     data: ConversationsDataType
 }
-
-function Conversation(props: ConversationProps) {
+export default function Conversation(props: ConversationProps) {
     const { user, setSelected, activeConversation, setActiveScreen } = useApplicationData();
     const [hasUnreadMessages, setHasUnreadMessages] = React.useState(false);
     const participants = props.data.participants.filter((item) => item._id !== user?._id);
@@ -50,7 +48,8 @@ function Conversation(props: ConversationProps) {
                         {people.slice(0, 50).trim()}{people.length > 50 && "..."}
                     </div>
                     <p className="text-sm">
-                        {lastMessage?.text.slice(0, 50).trim()}{lastMessage?.text.length > 50 && "..."}
+                        {lastMessage?.text.slice(0, 50).trim()}
+                        {lastMessage?.text.length > 50 && "..."}
                     </p>
                 </div>
                 <p className="w-1/3 text-end fs-7 text-gray-500">
@@ -60,36 +59,3 @@ function Conversation(props: ConversationProps) {
         </div>
     )
 }
-
-function ConversationsBarComponent() {
-    const { conversations } = useApplicationData();
-    return (
-        <div className="w-full flex flex-col grow overflow-hidden">
-            <h4 className="p-2 font-bold text-xl">Conversations</h4>
-            <div className="h-full overflow-scroll border-y border-blue-300">
-                {
-                    conversations.map((item, idx) => (
-                        <Conversation
-                            data={item}
-                            id={idx}
-                            key={idx}
-                        />
-                    ))
-                }
-                {
-                    conversations.length < 1 &&
-                    <div className="w-full h-full flex justify-center items-center">
-                        <div className="flex items-center">
-                            <p className="text-gray-400 font-bold fs-8 me-2">
-                                Your conversations appear here
-                            </p>
-                            <FaEdit size={20} />
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    )
-}
-
-export default ConversationsBarComponent;

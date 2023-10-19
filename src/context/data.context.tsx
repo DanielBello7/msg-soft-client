@@ -1,7 +1,7 @@
 import { ConversationsDataType, MessageDataType, ParticipantDataType } from "../vite-env";
 import variables from "../constants/variables";
 import React from "react";
-import useCookie from "../hooks/useCookies";
+import useCookie from "../hooks/use-cookies";
 
 export type ACTIVE_SCREEN_TYPE = "conversations" | "contacts";
 

@@ -1,10 +1,19 @@
-import { ConversationsDataType, ParticipantDataType } from "../vite-env";
-import { FaTrashAlt, FaUsers } from "react-icons/fa";
-import { useApplicationData } from "../context/data.context";
+import { ConversationsDataType, ParticipantDataType } from '@/vite-env';
 import { v4 as uuid } from 'uuid';
+import { FaTrashAlt } from 'react-icons/fa';
+import { useApplicationData } from '@/context/data.context';
 
-function Contact(props: ParticipantDataType) {
-    const { setContacts, contacts, conversations, setConversations, user, setSelected, setCurrentTab, setActiveScreen } = useApplicationData();
+export default function Contact(props: ParticipantDataType) {
+    const {
+        setContacts,
+        contacts,
+        conversations,
+        setConversations,
+        user,
+        setSelected,
+        setCurrentTab,
+        setActiveScreen
+    } = useApplicationData();
 
     const HandleClick = () => {
         const updated = contacts.filter((item) => item._id !== props._id);
@@ -55,29 +64,6 @@ function Contact(props: ParticipantDataType) {
                 <button className="hover:text-red-400" type="button" onClick={HandleClick}>
                     <FaTrashAlt />
                 </button>
-            </div>
-        </div>
-    )
-}
-
-export default function ContactsBarComponent() {
-    const { contacts } = useApplicationData();
-    return (
-        <div className="w-full flex grow flex-col">
-            <h1 className="p-2 font-bold text-xl">Contacts</h1>
-            <div className="border-t border-blue-300 flex flex-col grow overflow-scroll">
-                {contacts.map((item) => <Contact {...item} key={item._id} />)}
-                {
-                    contacts.length < 1 &&
-                    <div className="w-full h-full flex justify-center items-center">
-                        <div className="flex items-center">
-                            <p className="text-gray-400 font-bold fs-8 me-2">
-                                Your contacts appear here
-                            </p>
-                            <FaUsers size={20} />
-                        </div>
-                    </div>
-                }
             </div>
         </div>
     )

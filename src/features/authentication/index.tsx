@@ -1,11 +1,11 @@
-import { useApplicationData } from '../context/data.context';
+import { useApplicationData } from '@/context/data.context';
 import { FaSpinner } from 'react-icons/fa';
-import { useModalData } from '../context/modal.context';
+import { useModalData } from '@/context/modal.context';
 import { v4 as uuid } from 'uuid';
 import React from "react";
-import InputBox from '../modules/InputBox';
+import InputBox from '@/components/ui/input-box';
 
-export default function AuthenticationApp() {
+export default function Authentication() {
     const [identifier, setIdentifier] = React.useState("");
     const [fullname, setFullname] = React.useState("");
     const [isLoading, setIsLoading] = React.useState(false);

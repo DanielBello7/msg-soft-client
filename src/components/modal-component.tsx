@@ -1,6 +1,6 @@
 import * as React from 'react';
-import NewContactModal from '@/modules/NewContact.modal';
-import AlertModal from '@/modules/Alert.modal';
+import NewContactModal from '@/components/modals/new-contact-modal.tsx';
+import AlertModal from '@/components/modals/alert-modal';
 export default function ModalComponent() {
     return (
         <React.Fragment>
